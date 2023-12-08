@@ -51,18 +51,13 @@ CREATE TABLE
 
 DROP TABLE `vaultKeep`
 
--- SELECT
+SELECT
+    keeps.*,
+    COUNT(vaultKeeps.id) AS kept,
+    accounts.*
+FROM keeps
+    JOIN accounts ON accounts.id = keeps.creatorId
+    LEFT JOIN vaultKeeps ON vaultKeeps.vaultId = keeps.id
+GROUP BY(keeps.id);
 
---     keeps.*,
-
---     COUNT(vaultKeeps.id) AS kept,
-
---     accounts.*
-
--- FROM keeps
-
---     JOIN accounts ON accounts.id = keeps.creatorId
-
---     LEFT JOIN vaultKeeps ON vaultKeeps.vaultId = keeps.id
-
--- GROUP BY(keeps.id);
+SELECT * FROM keeps;
