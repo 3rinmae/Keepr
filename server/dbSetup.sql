@@ -50,3 +50,19 @@ CREATE TABLE
     ) default charset utf8 COMMENT '';
 
 DROP TABLE `vaultKeep`
+
+-- SELECT
+
+--     keeps.*,
+
+--     COUNT(vaultKeeps.id) AS kept,
+
+--     accounts.*
+
+-- FROM keeps
+
+--     JOIN accounts ON accounts.id = keeps.creatorId
+
+--     LEFT JOIN vaultKeeps ON vaultKeeps.vaultId = keeps.id
+
+-- GROUP BY(keeps.id);
