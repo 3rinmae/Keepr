@@ -1,5 +1,6 @@
 
 
+
 namespace Keepr.Repositories;
 
 public class VaultsRepository
@@ -38,6 +39,28 @@ public class VaultsRepository
       JOIN accounts acc ON acc.id = vau.creatorId
       WHERE vau.id = @vaultId;";
     Vault vault = _db.Query<Vault, Profile, Vault>(sql, VaultBuilder, new { vaultId }).FirstOrDefault();
+    return vault;
+  }
+
+  internal Vault UpdateVault(Vault vaultToUpdate)
+  {
+    string sql = @"
+      UPDATE vaults
+      SET
+      name = @Name,
+      description = @Description,
+      img = @Img,
+      isPrivate = @IsPrivate
+      WHERE id = @Id LIMIT 1;
+      
+      SELECT
+      vau.*,
+      acc.*
+      FROM vaults vau
+      JOIN accounts acc ON acc.id = vau.creatorId
+      WHERE vau.id = @Id;";
+
+    Vault vault = _db.Query<Vault, Profile, Vault>(sql, VaultBuilder, vaultToUpdate).FirstOrDefault();
     return vault;
   }
 
