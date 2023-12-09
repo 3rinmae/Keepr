@@ -30,19 +30,19 @@ public class AccountController : ControllerBase
     }
   }
 
-  [Authorize]
-  [HttpGet("vaults")]
-  public async Task<ActionResult<List<VaultVaultKeep>>> GetVaultVaultKeepsByAccountId()
-  {
-    try
-    {
-      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
-      List<VaultVaultKeep> vaultVaultKeeps = _vaultKeepsService.GetVaultVaultKeepsByAccountId(userInfo.Id);
-      return Ok(vaultVaultKeeps);
-    }
-    catch (Exception exception)
-    {
-      return BadRequest(exception.Message);
-    }
-  }
+  // [Authorize]
+  // [HttpGet("vaults")]
+  // public async Task<ActionResult<List<VaultVaultKeep>>> GetVaultVaultKeepsByAccountId()
+  // {
+  //   try
+  //   {
+  //     Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+  //     List<VaultVaultKeep> vaultVaultKeeps = _vaultKeepsService.GetVaultVaultKeepsByAccountId(userInfo.Id);
+  //     return Ok(vaultVaultKeeps);
+  //   }
+  //   catch (Exception exception)
+  //   {
+  //     return BadRequest(exception.Message);
+  //   }
+  // }
 }
