@@ -1,6 +1,7 @@
 
 
 
+
 namespace Keepr.Repositories;
 
 public class VaultsRepository
@@ -27,6 +28,12 @@ public class VaultsRepository
       WHERE vau.id = LAST_INSERT_ID();";
     Vault vault = _db.Query<Vault, Profile, Vault>(sql, VaultBuilder, vaultData).FirstOrDefault();
     return vault;
+  }
+
+  internal void DestroyVault(int vaultId)
+  {
+    string sql = "DELETE FROM vaults WHERE id = @vaultId LIMIT 1;";
+    _db.Execute(sql, new { vaultId });
   }
 
   internal Vault GetVaultById(int vaultId, string userId)

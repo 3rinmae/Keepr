@@ -17,6 +17,17 @@ public class VaultsService
     return vault;
   }
 
+  internal string DestroyVault(int vaultId, string userId)
+  {
+    Vault vault = GetVaultById(vaultId, userId);
+    if (vault.CreatorId != userId)
+    {
+      throw new Exception("This is not your Vault to delete");
+    }
+    _repository.DestroyVault(vaultId);
+    return $"{vault.Name} has been deleted!";
+  }
+
   internal Vault GetVaultById(int vaultId, string userId)
   {
     Vault vault = _repository.GetVaultById(vaultId, userId);
