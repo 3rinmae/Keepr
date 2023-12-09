@@ -61,3 +61,12 @@ FROM keeps
 GROUP BY(keeps.id);
 
 SELECT * FROM keeps;
+
+SELECT
+    k.*,
+    acc.*,
+    vk.id AS vaultKeepId
+FROM vaults v
+    JOIN vaultKeeps vk ON v.id = vk.vaultId AND v.creatorId = vk.creatorId
+    JOIN keeps k ON vk.keepId = k.id
+    JOIN accounts acc ON acc.id = v.creatorId

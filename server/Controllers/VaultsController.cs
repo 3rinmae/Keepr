@@ -6,11 +6,13 @@ public class VaultsController : ControllerBase
 {
   private readonly Auth0Provider _auth0Provider;
   private readonly VaultsService _vaultsService;
+  private readonly KeepsService _keepsService;
 
-  public VaultsController(Auth0Provider auth0Provider, VaultsService vaultsService)
+  public VaultsController(Auth0Provider auth0Provider, VaultsService vaultsService, KeepsService keepsService)
   {
     _auth0Provider = auth0Provider;
     _vaultsService = vaultsService;
+    _keepsService = keepsService;
   }
 
   [Authorize]
@@ -70,6 +72,21 @@ public class VaultsController : ControllerBase
       Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
       string message = _vaultsService.DestroyVault(vaultId, userInfo.Id);
       return Ok(message);
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
+  }
+
+  [HttpGet("{vaultId}/keeps")]
+  public async Task<ActionResult<List<Keep>>> GetKeepsInVault(int vaultId)
+  {
+    try
+    {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      List<VaultVaultKeep> vaultVaultKeeps = _keepsService.GetKeepsInVault(vaultId, userInfo?.Id);
+      return Ok(vaultVaultKeeps);
     }
     catch (Exception exception)
     {

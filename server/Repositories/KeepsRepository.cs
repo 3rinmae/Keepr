@@ -57,11 +57,34 @@ public class KeepsRepository
     string sql = @"
       SELECT
       kee.*,
+      COUNT(vk.id) AS kept,
       acc.*
       FROM keeps kee
-      JOIN accounts acc ON acc.id = kee.creatorID;";
+      JOIN accounts acc ON acc.id = kee.creatorId
+      LEFT JOIN vaultKeeps vk ON vk.keepId = kee.id
+      GROUP BY (kee.id);";
     List<Keep> keeps = _db.Query<Keep, Profile, Keep>(sql, KeepBuilder).ToList();
     return keeps;
+  }
+
+  internal List<VaultVaultKeep> GetKeepsInVault(int vaultId, string userId)
+  {
+    string sql = @"
+    SELECT k.*,
+    acc.*,
+    vk.id AS VaultKeepId
+    FROM vaults v
+    JOIN vaultKeeps vk ON v.id = vk.vaultId 
+    JOIN keeps k ON vk.keepId = k.id 
+    JOIN accounts acc ON acc.id = v.creatorId
+    WHERE v.id = @vaultId AND (v.creatorId = @userId OR v.isPrivate = false);";
+    List<VaultVaultKeep> vaultVaultKeeps = _db.Query<VaultVaultKeep, Profile, VaultVaultKeep>(sql, (vaultVaultKeeps, profile) =>
+    {
+      vaultVaultKeeps.Creator = profile;
+      return vaultVaultKeeps;
+    }, new { vaultId, userId }).ToList();
+    return vaultVaultKeeps;
+
   }
 
   internal Keep UpdateKeep(Keep keepToUpdate)
