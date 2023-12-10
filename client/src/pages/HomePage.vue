@@ -1,51 +1,120 @@
 <template>
-  <div class="">
-
+  <div class="container">
+    <section class="row grid">
+      <div v-for="keep in keeps" :key="keep.id" class="col item">
+        <KeepCard :keepProp="keep" />
+      </div>
+    </section>
   </div>
 </template>
 
 <script>
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
+import { keepsService } from "../services/KeepsService";
+import { computed, onMounted } from "vue";
+import { AppState } from "../AppState";
+import KeepCard from "../components/KeepCard.vue";
 
 export default {
   setup() {
-    // onMounted(() => {
-    //   getKeeps();
-    // });
-    // async function getKeeps() {
-    //   try {
-
-    //   } catch (error) {
-    //     logger.error(error)
-    //     Pop.error(error)
-    //   }
-    // }
-    return {
-
+    onMounted(() => {
+      getKeeps();
+    });
+    async function getKeeps() {
+      try {
+        await keepsService.getKeeps();
+      }
+      catch (error) {
+        logger.error(error);
+        Pop.error(error);
+      }
     }
-  }
+    return {
+      keeps: computed(() => AppState.keeps),
+      getKeeps
+    };
+  },
+  components: { KeepCard }
 }
 </script>
 
 <style scoped lang="scss">
-.home {
-  display: grid;
-  height: 80vh;
-  place-content: center;
-  text-align: center;
-  user-select: none;
-
-  .home-card {
-    width: clamp(500px, 50vw, 100%);
-
-    >img {
-      height: 200px;
-      max-width: 200px;
-      width: 100%;
-      object-fit: contain;
-      object-position: center;
-    }
-  }
+.grid {
+  columns: 18rem;
+  gap: 1rem;
+  counter-reset: grid;
 }
+
+.item+.item {
+  margin-top: 1rem;
+}
+
+.item {
+  break-inside: avoid;
+  aspect-ratio: 4 / 3;
+  // background: pink;
+  padding: 1rem;
+  border-radius: 0.75rem;
+}
+
+.item::before {
+  counter-increment: grid;
+  // content: counter(grid);
+}
+
+// .item:nth-child(3n) {
+// aspect-ratio: 1;
+// background: lavender;
+// }
+
+// .item:nth-child(3n - 1) {
+// aspect-ratio: 2 / 3;
+// background: lightblue;
+// }
+
+// .grid {
+//   display: grid;
+//   grid-template-rows: masonry;
+//   grid-template-columns: repeat(4, 1fr);
+//   gap: 1rem;
+//   counter-reset: grid;
+// }
+
+// body {
+//   display: layout(masonry);
+//   --padding: 20;
+//   --columns: 4;
+// }
+
+// div {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   padding: 20px;
+// }
+
+// div::first-letter {
+//   font-size: 200%;
+// }
+
+// .home {
+//   display: grid;
+//   height: 80vh;
+//   place-content: center;
+//   text-align: center;
+//   user-select: none;
+
+//   .home-card {
+//     width: clamp(500px, 50vw, 100%);
+
+//     >img {
+//       height: 200px;
+//       max-width: 200px;
+//       width: 100%;
+//       object-fit: contain;
+//       object-position: center;
+//     }
+//   }
+// }
 </style>
