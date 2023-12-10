@@ -1,7 +1,7 @@
 <template>
-  <section class="row keep-card">
-    <div class="col">
-      <p>{{ keepProp.name }}</p>
+  <section class=" keep-card">
+    <div class="">
+      <span class="">{{ keepProp.name }}</span>
 
     </div>
   </section>
@@ -26,11 +26,13 @@ export default {
 <style lang="scss" scoped>
 .keep-card {
   background-image: v-bind(keepImg);
+
   background-size: cover;
-  // object-fit: cover;
+  object-fit: contain;
   // background-size: cover;
   position: center;
-  width: 20dvw;
+  width: 100%;
   height: 100%;
+  padding-top: 100%;
 }
 </style>

@@ -1,7 +1,8 @@
 <template>
   <div class="container">
-    <section class="row grid">
-      <div v-for="keep in keeps" :key="keep.id" class="col item">
+    <!-- ="{'itemSelector': 'grid-item', 'columnWidth': 200 }" -->
+    <section class=" " data-masonry>
+      <div v-for="keep in keeps" :key="keep.id" class=" grid-item m-2">
         <KeepCard :keepProp="keep" />
       </div>
     </section>
@@ -15,6 +16,7 @@ import { keepsService } from "../services/KeepsService";
 import { computed, onMounted } from "vue";
 import { AppState } from "../AppState";
 import KeepCard from "../components/KeepCard.vue";
+import Masonry from "masonry-layout";
 
 export default {
   setup() {
@@ -24,6 +26,8 @@ export default {
     async function getKeeps() {
       try {
         await keepsService.getKeeps();
+        let row = document.querySelector("[data-masonry]")
+        new Masonry(row, { percentPosition: true })
       }
       catch (error) {
         logger.error(error);
@@ -40,28 +44,43 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.grid {
-  columns: 18rem;
-  gap: 1rem;
-  counter-reset: grid;
+// .grid {
+//   display: grid;
+//   grid-template-rows: masonry;
+//   grid-template-columns: repeat(4, 1fr 1fr);
+//   // gap: 1rem;
+//   counter-reset: grid;
+// }
+
+.grid-item {
+  float: left;
+  width: 20dvw;
+  height: min-content;
+  box-shadow: 1px 2px 3px black;
 }
 
-.item+.item {
-  margin-top: 1rem;
-}
+// .grid {
+//   columns: 18rem;
+//   gap: 1rem;
+//   counter-reset: grid;
+// }
 
-.item {
-  break-inside: avoid;
-  aspect-ratio: 4 / 3;
-  // background: pink;
-  padding: 1rem;
-  border-radius: 0.75rem;
-}
+// .item+.item {
+//   margin-top: 1rem;
+// }
 
-.item::before {
-  counter-increment: grid;
-  // content: counter(grid);
-}
+// .item {
+//   break-inside: avoid;
+//   aspect-ratio: 4 / 3;
+//   background: pink;
+//   padding: 1rem;
+//   border-radius: 0.75rem;
+// }
+
+// .item::before {
+//   counter-increment: grid;
+//   content: counter(grid);
+// }
 
 // .item:nth-child(3n) {
 // aspect-ratio: 1;
@@ -73,13 +92,6 @@ export default {
 // background: lightblue;
 // }
 
-// .grid {
-//   display: grid;
-//   grid-template-rows: masonry;
-//   grid-template-columns: repeat(4, 1fr);
-//   gap: 1rem;
-//   counter-reset: grid;
-// }
 
 // body {
 //   display: layout(masonry);
