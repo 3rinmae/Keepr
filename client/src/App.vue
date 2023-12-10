@@ -5,8 +5,7 @@
   <main>
     <router-view />
   </main>
-   <footer class="bg-dark text-light">
-    Made with 💖 by CodeWorks
+  <footer class="">
   </footer>
 </template>
 
@@ -25,9 +24,21 @@ export default {
 }
 </script>
 <style lang="scss">
+body {
+  background-color: #fef6f1
+}
+
+.bg-cream {
+  background-color: #fef6f1
+}
+
+.bg-lavender{
+  background-color: #dfd7ea
+}
+
 @import "./assets/scss/main.scss";
 
-:root{
+:root {
   --main-height: calc(100vh - 32px - 64px);
 }
 

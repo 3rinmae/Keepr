@@ -1,28 +1,43 @@
 <template>
-  <nav class="navbar navbar-expand-sm navbar-dark bg-dark px-3">
-    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flex flex-column align-items-center">
-        <img alt="logo" src="../assets/img/cw-logo.png" height="45" />
+  <nav class=" d-flex justify-content-between align-items-center bg-cream px-3 fixed-bottom ">
+    <div class="d-flex align-items-center">
+      <router-link class=" d-flex" :to="{ name: 'Home' }" title="home">
+        <div class="d-flex flex-column align-items-center ps-4">
+          <img alt="logo" src="../assets/img/Keepr logo.png" height="45" />
+        </div>
+      </router-link>
+      <div class="dropdown ps-2">
+        <button class="btn dropdown-toggle bg-lavender" type="button" id="dropdownMenu2" data-bs-toggle="dropdown"
+          aria-expanded="false" title="create dropdown">
+          Create
+        </button>
+        <ul class="dropdown-menu bg-lavender" aria-labelledby="dropdownMenu2">
+          <li><button class="dropdown-item bg-lavender" type="button" title="create new keep">new keep</button></li>
+          <li><button class="dropdown-item bg-lavender" type="button" title="create new vault">new vault</button></li>
+        </ul>
       </div>
-    </router-link>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+    </div>
+    <div class="pe-4">
+      <Login />
+    </div>
+    <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
       aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto">
+    </button> -->
+    <!-- <div class="" id="navbarText"> -->
+    <!-- <ul class="navbar-nav me-auto">
         <li>
           <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
             About
           </router-link>
         </li>
-      </ul>
-      <!-- LOGIN COMPONENT HERE -->
-      <div>
+      </ul> -->
+    <!-- LOGIN COMPONENT HERE -->
+    <!-- <div>
         <button class="btn text-light" @click="toggleTheme"><i class="mdi" :class="theme == 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"></i></button>
-      </div>
-      <Login />
-    </div>
+      </div> -->
+
+    <!-- </div> -->
   </nav>
 </template>
 
@@ -70,6 +85,13 @@ a:hover {
 @media screen and (min-width: 768px) {
   nav {
     height: 64px;
+  }
+}
+
+@media screen and (min-width: 450px) {
+  nav {
+    position: sticky;
+    border-bottom: 2px solid lavender;
   }
 }
 </style>
