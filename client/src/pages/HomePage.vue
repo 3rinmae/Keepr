@@ -5,8 +5,22 @@
 </template>
 
 <script>
+import { logger } from "../utils/Logger";
+import Pop from "../utils/Pop";
+
 export default {
   setup() {
+    // onMounted(() => {
+    //   getKeeps();
+    // });
+    // async function getKeeps() {
+    //   try {
+
+    //   } catch (error) {
+    //     logger.error(error)
+    //     Pop.error(error)
+    //   }
+    // }
     return {
 
     }
