@@ -33,13 +33,4 @@ public class VaultKeepsRepository
     return vaultKeep;
   }
 
-  // internal List<VaultVaultKeep> GetVaultVaultKeepsByAccountId(string userId)
-  // {
-  //   string sql = @"
-  //   INSERT INTO
-  //   SELECT
-  //   v.*,
-  //   acc.*,
-  //   FROM ;";
-  // }
 }

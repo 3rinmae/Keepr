@@ -2,6 +2,7 @@
 
 
 
+
 namespace Keepr.Repositories;
 
 public class VaultsRepository
@@ -34,6 +35,23 @@ public class VaultsRepository
   {
     string sql = "DELETE FROM vaults WHERE id = @vaultId LIMIT 1;";
     _db.Execute(sql, new { vaultId });
+  }
+
+  internal List<Vault> GetMyVaults(string userId)
+  {
+    string sql = @"
+      SELECT 
+      vau.*,
+      acc.*
+      FROM vaults vau
+      JOIN accounts acc on acc.id = vau.creatorId
+      WHERE vau.creatorId = @userId;";
+    List<Vault> vaults = _db.Query<Vault, Profile, Vault>(sql, (vaults, profile) =>
+    {
+      vaults.Creator = profile;
+      return vaults;
+    }, new { userId }).ToList();
+    return vaults;
   }
 
   internal Vault GetVaultById(int vaultId, string userId)

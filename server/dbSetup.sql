@@ -57,8 +57,18 @@ SELECT
     accounts.*
 FROM keeps
     JOIN accounts ON accounts.id = keeps.creatorId
-    LEFT JOIN vaultKeeps ON vaultKeeps.vaultId = keeps.id
+    LEFT JOIN vaultKeeps ON vaultKeeps.keepId = keeps.id
+WHERE keeps.id = 73
 GROUP BY(keeps.id);
+
+SELECT
+    kee.*,
+    COUNT(vk.id) AS kept,
+    acc.*
+FROM keeps kee
+    JOIN accounts acc ON acc.id = kee.creatorId
+    LEFT JOIN vaultKeeps vk ON vk.keepId = kee.id
+GROUP BY (kee.id);
 
 SELECT * FROM keeps;
 
@@ -69,4 +79,29 @@ SELECT
 FROM vaults v
     JOIN vaultKeeps vk ON v.id = vk.vaultId AND v.creatorId = vk.creatorId
     JOIN keeps k ON vk.keepId = k.id
+    JOIN accounts acc ON acc.id = v.creatorId;
+
+SELECT
+    k.*,
+    vk.id AS VaultKeepId,
+    acc.*
+FROM vaults v
+    JOIN vaultKeeps vk ON v.id = vk.vaultId
+    JOIN keeps k ON vk.keepId = k.id
     JOIN accounts acc ON acc.id = v.creatorId
+WHERE
+    v.id = 41
+    AND (
+        v.creatorId = @userId
+        OR v.isPrivate = false
+    );
+
+SELECT
+    kee.*,
+    COUNT(vk.id) AS kept,
+    acc.*
+FROM keeps kee
+    JOIN accounts acc ON acc.id = kee.creatorId
+    LEFT JOIN vaultKeeps vk ON vk.keepId = kee.id
+WHERE kee.id = 73
+GROUP BY (kee.id);

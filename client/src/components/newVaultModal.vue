@@ -41,6 +41,7 @@ import { computed, reactive, onMounted, ref } from 'vue';
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
 import { vaultsService } from "../services/VaultsService";
+import { Modal } from "bootstrap";
 export default {
   setup() {
     const editable = ref({})
@@ -52,6 +53,8 @@ export default {
           if (!vaultData.isPrivate) { vaultData.isPrivate = false }
           logger.log('creating vault', vaultData)
           await vaultsService.createNewVault(vaultData)
+          Modal.getOrCreateInstance('#createNewVault').hide()
+          editable.value = {}
         } catch (error) {
           logger.error(error)
           Pop.error(error)

@@ -1,9 +1,7 @@
 <template>
   <div class="container">
-    <section class="row" data-masonry>
-      <div v-for="keep in keeps" :key="keep.id" class="col-6 col-sm-3 p-3 marko-one text-white">
-        <KeepCard :keepProp="keep" />
-      </div>
+    <section class="masonry-with-columns">
+      <KeepCard :keepProp="keep" v-for="keep in keeps" :key="keep.id" />
     </section>
   </div>
 </template>
@@ -15,7 +13,6 @@ import { keepsService } from "../services/KeepsService";
 import { computed, onMounted } from "vue";
 import { AppState } from "../AppState";
 import KeepCard from "../components/KeepCard.vue";
-import Masonry from "masonry-layout";
 
 export default {
   setup() {
@@ -25,8 +22,8 @@ export default {
     async function getKeeps() {
       try {
         await keepsService.getKeeps();
-        let row = document.querySelector("[data-masonry]")
-        new Masonry(row, { percentPosition: true })
+        // let row = document.querySelector("[data-masonry]")
+        // new Masonry(row, { percentPosition: true })
       }
       catch (error) {
         logger.error(error);
@@ -44,6 +41,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.masonry-with-columns {
+  columns: 4 175px;
+}
+
+
 // .grid {
 //   display: grid;
 //   grid-template-rows: masonry;
@@ -52,13 +54,13 @@ export default {
 //   counter-reset: grid;
 // }
 
-.grid-item {
-  float: left;
-  height: min-content;
-  // width: 20%;
+// .grid-item {
+//   float: left;
+//   height: min-content;
+//   width: 20%;
 
-  // box-shadow: 1px 2px 3px black;
-}
+//   box-shadow: 1px 2px 3px black;
+// }
 
 // .grid {
 //   columns: 18rem;

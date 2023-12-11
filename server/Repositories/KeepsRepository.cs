@@ -42,10 +42,13 @@ public class KeepsRepository
     string sql = @"
       SELECT
       kee.*,
+      COUNT(vk.id) AS kept,
       acc.*
       FROM keeps kee
       JOIN accounts acc ON acc.id = kee.creatorId
-      WHERE kee.id = @keepId;";
+      LEFT JOIN vaultKeeps vk ON vk.keepId = kee.id
+      WHERE kee.id = @keepId
+      GROUP BY (kee.id);";
     Keep keep = _db.Query<Keep, Profile, Keep>(sql, KeepBuilder, new { keepId }).FirstOrDefault();
     return keep;
   }
@@ -71,8 +74,8 @@ public class KeepsRepository
   {
     string sql = @"
     SELECT k.*,
-    acc.*,
-    vk.id AS VaultKeepId
+    vk.id AS VaultKeepId,
+    acc.*
     FROM vaults v
     JOIN vaultKeeps vk ON v.id = vk.vaultId 
     JOIN keeps k ON vk.keepId = k.id 

@@ -1,5 +1,6 @@
 
 
+
 namespace Keepr.Services;
 
 public class VaultsService
@@ -26,6 +27,12 @@ public class VaultsService
     }
     _repository.DestroyVault(vaultId);
     return $"{vault.Name} has been deleted!";
+  }
+
+  internal List<Vault> GetMyVaults(string userId)
+  {
+    List<Vault> vaults = _repository.GetMyVaults(userId);
+    return vaults;
   }
 
   internal Vault GetVaultById(int vaultId, string userId)
