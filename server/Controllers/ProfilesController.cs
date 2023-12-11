@@ -31,5 +31,18 @@ public class ProfilesController : ControllerBase
     }
   }
 
-
+  [HttpGet("{profileId}/keeps")]
+  public async Task<ActionResult<List<Keep>>> GetKeepsByProfileId(string profileId)
+  {
+    try
+    {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      List<Keep> keeps = _keepsService.GetKeepsByProfileId(profileId, userInfo?.Id);
+      return Ok(keeps);
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
+  }
 }

@@ -3,6 +3,7 @@
 
 
 
+
 namespace Keepr.Repositories;
 
 public class KeepsRepository
@@ -67,6 +68,19 @@ public class KeepsRepository
       LEFT JOIN vaultKeeps vk ON vk.keepId = kee.id
       GROUP BY (kee.id);";
     List<Keep> keeps = _db.Query<Keep, Profile, Keep>(sql, KeepBuilder).ToList();
+    return keeps;
+  }
+
+  internal List<Keep> GetKeepsByProfileId(string profileId, string userId)
+  {
+    string sql = @"
+      SELECT
+      k.*,
+      acc.*
+      FROM keeps k
+      JOIN accounts acc ON acc.id = k.creatorId
+      WHERE k.creatorId = @profileId;";
+    List<Keep> keeps = _db.Query<Keep, Profile, Keep>(sql, KeepBuilder, new { profileId }).ToList();
     return keeps;
   }
 

@@ -53,14 +53,15 @@ public class KeepsService
     return keeps;
   }
 
+  internal List<Keep> GetKeepsByProfileId(string profileId, string userId)
+  {
+    List<Keep> keeps = _repository.GetKeepsByProfileId(profileId, userId);
+    return keeps;
+  }
+
   internal List<VaultVaultKeep> GetKeepsInVault(int vaultId, string userId)
   {
-    
     List<VaultVaultKeep> vaultVaultKeeps = _repository.GetKeepsInVault(vaultId, userId);
-    // if (vaultVaultKeeps.Count <= 0)
-    // {
-    //   throw new Exception($"Invalid Id: {vaultId}");
-    // }
     return vaultVaultKeeps;
   }
 

@@ -105,3 +105,9 @@ FROM keeps kee
     LEFT JOIN vaultKeeps vk ON vk.keepId = kee.id
 WHERE kee.id = 73
 GROUP BY (kee.id);
+
+SELECT k.*, acc.*
+FROM keeps k
+    JOIN accounts acc ON acc.id = k.creatorId
+WHERE
+    k.creatorId = '65418297a9f6909bc3e92f61';
