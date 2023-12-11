@@ -2,7 +2,7 @@
   <div class="">
     <div class="p-3 oxygen">
       <span class="fs-2">Add your vault</span>
-      <form @submit.prevent="createNewKeep()" class="pt-3">
+      <form @submit.prevent="createNewVault()" class="pt-3">
         <div class="mb-3">
           <!-- <label for="Title" class="form-label" title="title">Title</label> -->
           <input v-model="editable.name" type="text" class="form-control" id="title" aria-describedby="title"
@@ -40,6 +40,7 @@ import { AppState } from '../AppState';
 import { computed, reactive, onMounted, ref } from 'vue';
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
+import { vaultsService } from "../services/VaultsService";
 export default {
   setup() {
     const editable = ref({})
@@ -49,6 +50,7 @@ export default {
         try {
           const vaultData = editable.value
           logger.log('creating vault', vaultData)
+          await vaultsService.createNewVault(vaultData)
         } catch (error) {
           logger.error(error)
           Pop.error(error)
