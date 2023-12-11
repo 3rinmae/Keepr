@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-
     <section class="row" data-masonry>
       <div v-for="keep in keeps" :key="keep.id" class="col-6 col-sm-3 p-3 marko-one text-white">
         <KeepCard :keepProp="keep" />
@@ -36,6 +35,7 @@ export default {
     }
     return {
       keeps: computed(() => AppState.keeps),
+      account: computed(() => AppState.account),
       getKeeps
     };
   },

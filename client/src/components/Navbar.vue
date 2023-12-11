@@ -6,7 +6,7 @@
           <img alt="logo" src="../assets/img/Keepr logo.png" height="45" />
         </div>
       </router-link>
-      <div class="dropdown ps-2">
+      <div v-if="account.id" class="dropdown ps-2">
         <button class="btn dropdown-toggle bg-lavender " type="button" id="dropdownMenu2" data-bs-toggle="dropdown"
           aria-expanded="false" title="create dropdown">
           <span class="oxygen ">
@@ -47,9 +47,10 @@
 </template>
 
 <script>
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { loadState, saveState } from '../utils/Store.js';
 import Login from './Login.vue';
+import { AppState } from "../AppState";
 export default {
   setup() {
 
@@ -61,6 +62,7 @@ export default {
 
     return {
       theme,
+      account: computed(() => AppState.account),
       toggleTheme() {
         theme.value = theme.value == 'light' ? 'dark' : 'light'
         document.documentElement.setAttribute('data-bs-theme', theme.value)

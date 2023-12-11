@@ -15,6 +15,12 @@ class KeepsService {
     logger.log('keep created', res.data)
     AppState.keeps.push(new Keep(res.data))
   }
+
+  async destroyKeep(keepId) {
+    const res = await api.delete(`api/keeps/${keepId}`)
+    logger.log('keep deleted', res.data)
+    this.getKeeps()
+  }
 }
 
 export const keepsService = new KeepsService()

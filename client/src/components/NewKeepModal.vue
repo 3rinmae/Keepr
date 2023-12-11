@@ -45,6 +45,7 @@ export default {
           await keepsService.createNewKeep(keepData)
           Modal.getOrCreateInstance('#createNewKeep').hide()
           editable.value = {}
+          keepsService.getKeeps()
         } catch (error) {
           logger.error(error)
           Pop.error(error)
