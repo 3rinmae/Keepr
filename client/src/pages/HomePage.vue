@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <!-- ="{'itemSelector': 'grid-item', 'columnWidth': 200 }" -->
-    <section class=" " data-masonry>
-      <div v-for="keep in keeps" :key="keep.id" class=" grid-item m-2">
+
+    <section class="row" data-masonry>
+      <div v-for="keep in keeps" :key="keep.id" class="col-6 col-sm-3 p-3 marko-one text-white">
         <KeepCard :keepProp="keep" />
       </div>
     </section>
@@ -54,9 +54,10 @@ export default {
 
 .grid-item {
   float: left;
-  width: 20dvw;
   height: min-content;
-  box-shadow: 1px 2px 3px black;
+  // width: 20%;
+
+  // box-shadow: 1px 2px 3px black;
 }
 
 // .grid {

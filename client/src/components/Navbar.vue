@@ -7,13 +7,18 @@
         </div>
       </router-link>
       <div class="dropdown ps-2">
-        <button class="btn dropdown-toggle bg-lavender" type="button" id="dropdownMenu2" data-bs-toggle="dropdown"
+        <button class="btn dropdown-toggle bg-lavender " type="button" id="dropdownMenu2" data-bs-toggle="dropdown"
           aria-expanded="false" title="create dropdown">
-          Create
+          <span class="oxygen ">
+            Create
+          </span>
         </button>
         <ul class="dropdown-menu bg-lavender" aria-labelledby="dropdownMenu2">
-          <li><button class="dropdown-item bg-lavender" type="button" title="create new keep">new keep</button></li>
-          <li><button class="dropdown-item bg-lavender" type="button" title="create new vault">new vault</button></li>
+          <li><button class="dropdown-item bg-lavender oxygen" type="button" title="create new keep"
+              data-bs-toggle="modal" data-bs-target="#createNewKeep">new keep</button>
+          </li>
+          <li><button class="dropdown-item bg-lavender oxygen" type="button" title="create new vault">new vault</button>
+          </li>
         </ul>
       </div>
     </div>

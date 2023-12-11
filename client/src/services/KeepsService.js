@@ -9,6 +9,12 @@ class KeepsService {
     logger.log('get keeps', res.data)
     AppState.keeps = res.data.map((keep) => new Keep(keep))
   }
+
+  async createNewKeep(keepData) {
+    const res = await api.post('api/keeps', keepData)
+    logger.log('keep created', res.data)
+    AppState.keeps.push(new Keep(res.data))
+  }
 }
 
 export const keepsService = new KeepsService()

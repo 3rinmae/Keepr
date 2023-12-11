@@ -7,12 +7,24 @@
   </main>
   <footer class="">
   </footer>
+
+  <div class="modal fade" id="createNewKeep" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-body p-0">
+          <NewKeepModal />
+
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import { computed } from 'vue'
 import { AppState } from './AppState'
 import Navbar from './components/Navbar.vue'
+import NewKeepModal from "./components/NewKeepModal.vue"
 
 export default {
   setup() {
@@ -20,7 +32,7 @@ export default {
       appState: computed(() => AppState)
     }
   },
-  components: { Navbar }
+  components: { Navbar, NewKeepModal }
 }
 </script>
 <style lang="scss">
@@ -32,8 +44,24 @@ body {
   background-color: #fef6f1
 }
 
-.bg-lavender{
+.bg-lavender {
   background-color: #dfd7ea
+}
+
+.inter {
+  font-family: 'Inter', sans-serif;
+}
+
+.marko-one {
+  font-family: 'Marko One', serif;
+}
+
+.oxygen {
+  font-family: 'Oxygen', sans-serif;
+}
+
+.quando {
+  font-family: 'Quando', serif;
 }
 
 @import "./assets/scss/main.scss";
