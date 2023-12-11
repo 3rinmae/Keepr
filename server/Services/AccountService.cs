@@ -1,3 +1,4 @@
+
 namespace Keepr.Services;
 
 public class AccountService
@@ -30,5 +31,15 @@ public class AccountService
     original.Name = editData.Name?.Length > 0 ? editData.Name : original.Name;
     original.Picture = editData.Picture?.Length > 0 ? editData.Picture : original.Picture;
     return _repo.Edit(original);
+  }
+
+  internal Profile GetProfileById(string profileId)
+  {
+    Profile profile = _repo.GetProfileById(profileId);
+    if (profile == null)
+    {
+      throw new Exception($"Invalid id: {profileId}");
+    }
+    return profile;
   }
 }

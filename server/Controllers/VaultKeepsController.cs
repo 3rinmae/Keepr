@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Http.HttpResults;
+
 namespace Keepr.Controllers;
 
 [ApiController]
@@ -23,7 +25,11 @@ public class VaultKeepsController : ControllerBase
     {
       Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
       vaultKeepData.CreatorId = userInfo.Id;
-      _vaultsService.GetVaultById(vaultKeepData.VaultId, userInfo.Id);
+      Vault vault = _vaultsService.GetVaultById(vaultKeepData.VaultId, userInfo?.Id);
+      if (vault.CreatorId != vaultKeepData.CreatorId)
+      {
+        throw new Exception("Not your vault to add to");
+      }
       VaultKeep vaultKeep = _vaultKeepsService.CreateVaultKeep(vaultKeepData);
       return Ok(vaultKeep);
     }
@@ -40,6 +46,11 @@ public class VaultKeepsController : ControllerBase
     try
     {
       Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      VaultKeep vaultKeep = _vaultKeepsService.GetVaultKeepById(vaultKeepId);
+      if (vaultKeep.CreatorId != userInfo.Id)
+      {
+        throw new Exception("Not your vault to delete!");
+      }
       string message = _vaultKeepsService.DestroyVaultKeep(vaultKeepId, userInfo.Id);
       return Ok(message);
     }

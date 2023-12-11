@@ -1,3 +1,4 @@
+
 namespace Keepr.Repositories;
 
 public class AccountsRepository
@@ -42,6 +43,12 @@ public class AccountsRepository
             WHERE id = @Id;";
     _db.Execute(sql, update);
     return update;
+  }
+
+  internal Profile GetProfileById(string profileId)
+  {
+    string sql = "SELECT * FROM accounts WHERE id = @profileId";
+    return _db.QueryFirstOrDefault<Profile>(sql, new { profileId });
   }
 }
 
