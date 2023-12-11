@@ -18,6 +18,16 @@
       </div>
     </div>
   </div>
+  <div class="modal fade" id="createNewVault" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-body p-0">
+          <NewVaultModal />
+
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -25,6 +35,7 @@ import { computed } from 'vue'
 import { AppState } from './AppState'
 import Navbar from './components/Navbar.vue'
 import NewKeepModal from "./components/NewKeepModal.vue"
+import NewVaultModal from "./components/NewVaultModal.vue"
 
 export default {
   setup() {
@@ -32,7 +43,7 @@ export default {
       appState: computed(() => AppState)
     }
   },
-  components: { Navbar, NewKeepModal }
+  components: { Navbar, NewKeepModal, NewVaultModal }
 }
 </script>
 <style lang="scss">

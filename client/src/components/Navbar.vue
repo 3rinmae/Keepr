@@ -17,7 +17,8 @@
           <li><button class="dropdown-item bg-lavender oxygen" type="button" title="create new keep"
               data-bs-toggle="modal" data-bs-target="#createNewKeep">new keep</button>
           </li>
-          <li><button class="dropdown-item bg-lavender oxygen" type="button" title="create new vault">new vault</button>
+          <li><button class="dropdown-item bg-lavender oxygen" type="button" title="create new vault"
+              data-bs-toggle="modal" data-bs-target="#createNewVault">new vault</button>
           </li>
         </ul>
       </div>
