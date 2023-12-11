@@ -49,6 +49,7 @@ export default {
       async createNewVault() {
         try {
           const vaultData = editable.value
+          if (!vaultData.isPrivate) { vaultData.isPrivate = false }
           logger.log('creating vault', vaultData)
           await vaultsService.createNewVault(vaultData)
         } catch (error) {
