@@ -55,11 +55,12 @@ public class KeepsService
 
   internal List<VaultVaultKeep> GetKeepsInVault(int vaultId, string userId)
   {
+    
     List<VaultVaultKeep> vaultVaultKeeps = _repository.GetKeepsInVault(vaultId, userId);
-    if (vaultVaultKeeps.Count <= 0)
-    {
-      throw new Exception($"Invalid Id: {vaultId}");
-    }
+    // if (vaultVaultKeeps.Count <= 0)
+    // {
+    //   throw new Exception($"Invalid Id: {vaultId}");
+    // }
     return vaultVaultKeeps;
   }
 

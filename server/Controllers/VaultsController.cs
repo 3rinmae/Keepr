@@ -85,6 +85,11 @@ public class VaultsController : ControllerBase
     try
     {
       Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      Vault vault = _vaultsService.GetVaultById(vaultId, userInfo.Id);
+      if (vault.IsPrivate == true && vault.CreatorId != userInfo.Id)
+      {
+        return BadRequest("Not your vault to access");
+      }
       List<VaultVaultKeep> vaultVaultKeeps = _keepsService.GetKeepsInVault(vaultId, userInfo?.Id);
       return Ok(vaultVaultKeeps);
     }

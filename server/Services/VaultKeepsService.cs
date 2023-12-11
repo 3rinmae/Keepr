@@ -1,5 +1,6 @@
 
 
+
 namespace Keepr.Services;
 
 public class VaultKeepsService
@@ -21,6 +22,28 @@ public class VaultKeepsService
     // _keepsRepository.UpdateKeep(keep);
     return vaultKeep;
   }
+
+  internal VaultKeep GetVaultKeepById(int vaultKeepId)
+  {
+    VaultKeep vaultKeep = _repository.GetVaultKeepById(vaultKeepId);
+    if (vaultKeep == null)
+    {
+      throw new Exception($"Invalid id: {vaultKeepId}");
+    }
+    return vaultKeep;
+  }
+
+  internal string DestroyVaultKeep(int vaultKeepId, string userId)
+  {
+    VaultKeep vaultKeep = GetVaultKeepById(vaultKeepId);
+    if(vaultKeep.CreatorId != userId)
+    {
+      throw new Exception("This is not yours to delete");
+    }
+    _repository.DestroyVaultKeep(vaultKeepId);
+    return "You have deleted this keep from your vault";
+  }
+
 
   // internal List<VaultVaultKeep> GetVaultVaultKeepsByAccountId(string userId)
   // {
