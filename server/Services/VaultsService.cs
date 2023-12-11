@@ -49,6 +49,12 @@ public class VaultsService
     return vault;
   }
 
+  internal List<Vault> GetVaultsByProfileId(string profileId, string userId)
+  {
+    List<Vault> vaults = _repository.GetVaultsByProfileId(profileId, userId);
+    return vaults;
+  }
+
   internal Vault UpdateVault(int vaultId, string userId, Vault vaultData)
   {
     Vault vaultToUpdate = GetVaultById(vaultId, userId);
