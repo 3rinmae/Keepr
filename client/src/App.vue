@@ -47,8 +47,11 @@ import KeepModal from "./components/KeepModal.vue"
 
 export default {
   setup() {
+    // const myModalEl = document.getElementById('keepModal')
+    // myModalEl.addEventListener('hidden.bs.modal', event => { AppState.activeKeep = {} })
     return {
-      appState: computed(() => AppState)
+      appState: computed(() => AppState),
+      activeKeep: computed(() => AppState.activeKeep),
     }
   },
   components: { Navbar, NewKeepModal, NewVaultModal, KeepModal }

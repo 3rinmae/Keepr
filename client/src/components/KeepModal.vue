@@ -1,6 +1,12 @@
 <template>
   <div class="container-fluid bg-cream border-0 rounded-4">
-    <section class="row">
+    <section v-if="!activeKeep" class="row">
+      <div class="col-12">
+        Loading Keep...
+      </div>
+    </section>
+
+    <section v-else class="row">
       <div class="col-6 m-0 p-0">
         <img :src="activeKeep?.img" alt="keep image" :title="activeKeep?.name" class="img-fluid active-modal-img w-100">
       </div>
@@ -42,9 +48,12 @@
             </div>
           </div>
           <div class="col d-flex align-items-center justify-content-end p-0" role="button">
-            <img :src="activeKeep?.creator?.picture" alt="creator image" title="creator image link to profile"
-              class="img-fluid rounded-circle creator-image">
-            <span class="ps-1">{{ activeKeep?.creator?.name }}</span>
+            <router-link :to="{ name: 'Profile', params: { profileId: activeKeep?.creatorId } }"
+              v-if="activeKeep.creatorId" @click="closeKeepModal()">
+              <img :src="activeKeep?.creator?.picture" alt="creator image" title="creator image link to profile"
+                class="img-fluid rounded-circle creator-image">
+              <span class="ps-1">{{ activeKeep?.creator?.name }}</span>
+            </router-link>
           </div>
         </section>
       </div>
@@ -59,6 +68,8 @@ import { computed, reactive, onMounted, ref } from 'vue';
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
 import { vaultKeepsService } from "../services/VaultKeepsService";
+import { keepsService } from "../services/KeepsService";
+import { Modal } from "bootstrap";
 export default {
   setup() {
     const editable = ref({})
@@ -80,6 +91,12 @@ export default {
           logger.error(error)
           Pop.error(error)
         }
+      },
+
+      async closeKeepModal() {
+        Modal.getOrCreateInstance('#keepModal').hide()
+        keepsService.clearActiveKeep()
+        // logger.log(AppState.activeKeep)
       }
     }
   }

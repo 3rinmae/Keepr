@@ -28,6 +28,10 @@ class KeepsService {
     logger.log('keep deleted', res.data)
     this.getKeeps()
   }
+
+  async clearActiveKeep() {
+    AppState.activeKeep = {}
+  }
 }
 
 export const keepsService = new KeepsService()
