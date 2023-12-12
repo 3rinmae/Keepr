@@ -13,7 +13,7 @@ class VaultsService {
   async getMyVaults() {
     const res = await api.get('account/vaults')
     logger.log('my vaults', res.data)
-    AppState.myVaults.unshift(new Vault(res.data))
+    // AppState.myVaults.unshift(new Vault(res.data))
   }
 }
 

@@ -10,6 +10,13 @@ class KeepsService {
     AppState.keeps = res.data.map((keep) => new Keep(keep))
   }
 
+  async getKeepById(keepId) {
+    AppState.activeKeep = {}
+    const res = await api.get(`api/keeps/${keepId}`)
+    logger.log('getting keep by id', res.data)
+    AppState.activeKeep = res.data
+  }
+
   async createNewKeep(keepData) {
     const res = await api.post('api/keeps', keepData)
     logger.log('keep created', res.data)

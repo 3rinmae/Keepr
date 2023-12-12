@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <section class="masonry-with-columns">
-      <KeepCard :keepProp="keep" v-for="keep in keeps" :key="keep.id" @click="setActiveKeep(keep)" role="button" />
+      <KeepCard :keepProp="keep" v-for="keep in keeps" :key="keep.id" role="button" />
     </section>
   </div>
 </template>
@@ -34,12 +34,8 @@ export default {
     return {
       keeps: computed(() => AppState.keeps),
       account: computed(() => AppState.account),
-      getKeeps,
-      setActiveKeep(keep) {
-        AppState.activeKeep = keep
-        logger.log('setting active card', keep)
-        Modal.getOrCreateInstance('#keepModal').show()
-      }
+      getKeeps
+
     };
   },
   components: { KeepCard }

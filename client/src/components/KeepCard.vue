@@ -1,5 +1,5 @@
 <template>
-  <section class="position-relative my-3 marko-one text-white" v-show="show">
+  <section @click="setActiveKeep()" class="position-relative my-3 marko-one text-white" v-show="show">
     <img :src="keepProp.img" alt="" class="img-fluid" @load="ready">
     <div v-if="account.id == keepProp.creatorId" class="position-absolute" style="top: -18px; right: -18px"
       title="delete keep">
@@ -28,6 +28,7 @@ import { Keep } from "../models/Keep";
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
 import { keepsService } from "../services/KeepsService";
+import { Modal } from "bootstrap";
 export default {
   props: { keepProp: { type: Keep, required: true } },
   setup(props) {
@@ -53,6 +54,13 @@ export default {
           logger.error(error)
           Pop.error(error)
         }
+      },
+      setActiveKeep() {
+        AppState.activeKeep = props.keepProp
+        logger.log('setting active card', props.keepProp)
+        keepsService.getKeepById(props.keepProp.id)
+        Modal.getOrCreateInstance('#keepModal').show()
+        logger.log('appstate active keep', AppState.activeKeep)
       }
     }
   }
