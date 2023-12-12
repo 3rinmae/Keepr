@@ -15,9 +15,9 @@
           <!-- <div class="col-6">
           </div> -->
         </section>
-        <section class="row ">
+        <section class="row w-100">
           <div class="col-12 fs-1">
-            <p class="marko-one d-flex justify-content-center">{{ activeKeep?.name }}</p>
+            <p class="marko-one d-flex justify-content-center text-center">{{ activeKeep?.name }}</p>
           </div>
           <div>
             <p class="px-4"> {{ activeKeep?.description }}</p>
@@ -28,14 +28,17 @@
             <div v-if="account?.id" class="d-flex">
               <button v-if="activeKeep?.id == activeVaultKeep?.keepId" class="btn border-bottom"><i
                   class="mdi mdi-minus-circle-outline"></i>
-                <span>Remove</span></button>
-              <select class="form-select" aria-label="Default select example">
-                <option selected>My Vaults</option>
-                <option v-for="vault in myVaults" :key="vault?.id" :value="myVaults?.name"><span>
-                    {{ myVaults?.name }}
-                  </span></option>
-              </select>
-              <button class="btn marko-one bg-plum">save</button>
+                <span>Remove</span>
+              </button>
+              <form class="d-flex" @submit="addKeepToVault()">
+                <select v-model="editable.vaultId" class="form-select" aria-label="Default select example">
+                  <!-- <option selected>My Vaults</option> -->
+                  <option v-for="vaultId in myVaults" :key="vaultId?.id" :value="vaultId?.id"><span>
+                      {{ vaultId?.name }}
+                    </span></option>
+                </select>
+                <button type="submit" class="btn marko-one bg-plum">save</button>
+              </form>
             </div>
           </div>
           <div class="col d-flex align-items-center justify-content-end p-0" role="button">
@@ -52,16 +55,32 @@
 
 <script>
 import { AppState } from '../AppState';
-import { computed, reactive, onMounted } from 'vue';
+import { computed, reactive, onMounted, ref } from 'vue';
+import { logger } from "../utils/Logger";
+import Pop from "../utils/Pop";
+import { vaultKeepsService } from "../services/VaultKeepsService";
 export default {
   setup() {
+    const editable = ref({})
     return {
+      editable,
       activeKeep: computed(() => AppState.activeKeep),
       account: computed(() => AppState.account),
       myVaults: computed(() => AppState.myVaults),
       myVaultsByName: computed(() => AppState.myVaults?.name),
       activeVault: computed(() => AppState.activeVault),
-      activeVaultKeep: computed(() => AppState.activeVaultKeep)
+      activeVaultKeep: computed(() => AppState.activeVaultKeep),
+      async addKeepToVault() {
+        try {
+          const vaultKeepData = editable.value
+          logger.log("creating vaultKeep", vaultKeepData)
+          await vaultKeepsService.addKeepToVault(vaultKeepData)
+          editable.value = {}
+        } catch (error) {
+          logger.error(error)
+          Pop.error(error)
+        }
+      }
     }
   }
 };
