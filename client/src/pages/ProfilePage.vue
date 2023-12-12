@@ -5,12 +5,13 @@
         Loading Profile Page...
       </div>
     </section>
-    <section v-else class="row justify-content-center pt-5 position-relative">
+    <section v-else class="row justify-content-center pt-5 ">
       <div class="col-9">
         <img :src="activeProfile.coverImg" alt="profile cover image" class="img-fluid coverImg">
       </div>
       <div class="col-12 d-flex justify-content-center">
-        <section class="row justify-content-center position-absolute" style="bottom:-45%;">
+        <!-- position-absolute -->
+        <section class="row justify-content-center " style="bottom:26%;">
           <div class="col-12 d-flex justify-content-center">
             <img :src="activeProfile.picture" alt="profile picture" :title="activeProfile.Name"
               class="img-fluid rounded-circle profileImg">
@@ -20,7 +21,7 @@
           </span>
           <div class="col-12 d-flex justify-content-center oxygen fs-4">
             <span class="">
-              # of vaults
+              {{ activeProfileVaults.length }} Vaults
             </span>
             <span class="px-2">|</span>
             <span>
@@ -32,7 +33,15 @@
         </section>
       </div>
     </section>
-
+    <section class="row pt-3 justify-content-center">
+      <div class="col-10">
+        <span class="oxygen sectionTitles">Vaults</span>
+      </div>
+      <div class="col-10">
+        <img :src="activeProfileVaults.img" alt="vault image">
+        <span>{{ activeProfileVaults.name }}</span>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -74,6 +83,7 @@ export default {
       async function getVaultsByProfileId() {
         try {
           const profileId = route.params.profileId
+          AppState.activeProfileVaults = []
           if (profileId == AppState.account.id) {
             await vaultsService.getMyVaults(profileId)
             await vaultsService.myVaultsIntoActiveProfileVaults()
@@ -90,7 +100,8 @@ export default {
       activeProfile: computed(() => AppState.activeProfile),
       account: computed(() => AppState.account),
       activeProfileKeeps: computed(() => AppState.activeProfileKeeps),
-      activeProfileVaults: computed(() => AppState.activeProfileVaults)
+      activeProfileVaults: computed(() => AppState.activeProfileVaults),
+      activeProfileVaultsLength: computed(() => AppState.activeProfileVaults.length)
     }
   }
 };
@@ -115,6 +126,11 @@ export default {
 
 .profileName {
   font-size: 4rem;
+  font-weight: bold;
+}
+
+.sectionTitles {
+  font-size: 3.3rem;
   font-weight: bold;
 }
 </style>
