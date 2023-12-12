@@ -38,8 +38,21 @@
         <span class="oxygen sectionTitles">Vaults</span>
       </div>
       <div class="col-10">
-        <img :src="activeProfileVaults.img" alt="vault image">
-        <span>{{ activeProfileVaults.name }}</span>
+        <section class="row">
+          <div v-for="vault in activeProfileVaults" :key="vault.id" role="button" class="col-3 ">
+            <img :src="vault.img" alt="vault image" :title="vault.name" class="img-fluid vaultCard">
+            <span class="p-2 quando text-white keep-card-text position-relative" style="bottom: 21%">{{ vault.name
+            }}</span>
+          </div>
+        </section>
+      </div>
+    </section>
+    <section class="row pt-3 justify-content-center">
+      <div class="col-10">
+        <span class="oxygen sectionTitles">Keeps</span>
+      </div>
+      <div class="col-10">
+
       </div>
     </section>
   </div>
@@ -132,5 +145,22 @@ export default {
 .sectionTitles {
   font-size: 3.3rem;
   font-weight: bold;
+}
+
+.vaultCard {
+  height: 15dvh;
+  object-fit: cover;
+  width: 100%;
+  image-rendering: smooth;
+  box-shadow: 0px 7px 10px #0000009e;
+}
+
+.keep-card-text {
+  box-shadow:
+    0px -10px 20px 4px #4949498b;
+  // 0 0 2rem .5rem #4949498b inset;
+  background: #4949498b;
+  width: 100%;
+  display: inline-flex;
 }
 </style>

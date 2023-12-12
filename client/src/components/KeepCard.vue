@@ -73,7 +73,7 @@ export default {
 
 <style lang="scss" scoped>
 .keep-card {
-  box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.619);
+  box-shadow: 0px 7px 10px #0000009e;
   width: 100%;
 }
 
