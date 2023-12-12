@@ -82,40 +82,40 @@ export default {
       getProfileById();
       getKeepsByProfileId();
       getVaultsByProfileId();
-      async function getProfileById() {
-        try {
-          const profileId = route.params.profileId
-          await profilesService.getProfileById(profileId)
-        } catch (error) {
-          logger.error(error)
-          Pop.error(error)
-        }
+    });
+    async function getProfileById() {
+      try {
+        const profileId = route.params.profileId
+        await profilesService.getProfileById(profileId)
+      } catch (error) {
+        logger.error(error)
+        Pop.error(error)
       }
-      async function getKeepsByProfileId() {
-        try {
-          const profileId = route.params.profileId
-          await profilesService.getKeepsByProfileId(profileId)
-        } catch (error) {
-          logger.error(error)
-          Pop.error(error)
-        }
+    }
+    async function getKeepsByProfileId() {
+      try {
+        const profileId = route.params.profileId
+        await profilesService.getKeepsByProfileId(profileId)
+      } catch (error) {
+        logger.error(error)
+        Pop.error(error)
       }
-      async function getVaultsByProfileId() {
-        try {
-          const profileId = route.params.profileId
-          AppState.activeProfileVaults = []
-          if (profileId == AppState.account.id) {
-            await vaultsService.getMyVaults(profileId)
-            await vaultsService.myVaultsIntoActiveProfileVaults()
-            return
-          }
-          await profilesService.getVaultsByProfileId(profileId)
-        } catch (error) {
-          logger.error(error)
-          Pop.error(error)
+    }
+    async function getVaultsByProfileId() {
+      try {
+        const profileId = route.params.profileId
+        AppState.activeProfileVaults = []
+        if (profileId == AppState.account.id) {
+          await vaultsService.getMyVaults(profileId)
+          await vaultsService.myVaultsIntoActiveProfileVaults()
+          return
         }
+        await profilesService.getVaultsByProfileId(profileId)
+      } catch (error) {
+        logger.error(error)
+        Pop.error(error)
       }
-    })
+    }
     return {
       activeProfile: computed(() => AppState.activeProfile),
       account: computed(() => AppState.account),
