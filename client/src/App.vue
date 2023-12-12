@@ -67,6 +67,10 @@ body {
   background-color: #dfd7ea
 }
 
+.bg-plum {
+  background-color: #877a90;
+}
+
 .inter {
   font-family: 'Inter', sans-serif;
 }
