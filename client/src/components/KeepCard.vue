@@ -1,5 +1,5 @@
 <template>
-  <section @click="setActiveKeep()" class="position-relative my-3 marko-one text-white" v-show="show">
+  <section @click="setActiveKeep()" class="position-relative mb-3 marko-one text-white keep-card " v-show="show">
     <img :src="keepProp.img" alt="" class="img-fluid" @load="ready">
     <div v-if="account.id == keepProp.creatorId" class="position-absolute" style="top: -18px; right: -18px"
       title="delete keep">

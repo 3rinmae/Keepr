@@ -111,6 +111,6 @@ export default {
 }
 
 .active-modal-img {
-  border-radius: 3% 0% 0% 3%;
+  border-radius: 14px 0% 0% 14px;
 }
 </style>

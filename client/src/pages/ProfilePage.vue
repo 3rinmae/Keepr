@@ -40,9 +40,12 @@
       <div class="col-10">
         <section class="row">
           <div v-for="vault in activeProfileVaults" :key="vault.id" role="button" class="col-3 ">
-            <img :src="vault.img" alt="vault image" :title="vault.name" class="img-fluid vaultCard">
-            <span class="p-2 quando text-white keep-card-text position-relative" style="bottom: 21%">{{ vault.name
-            }}</span>
+            <router-link :to="{ name: 'Vault', params: { vaultId: vault?.id } }">
+              <img :src="vault.img" alt="vault image" :title="vault.name" class="img-fluid vaultCard">
+              <span class="p-2 quando text-white keep-card-text position-relative d-flex justify-content-between"
+                style="bottom: 21%">{{ vault.name
+                }} <span v-if="vault.isPrivate == true"><i class="mdi mdi-lock"></i></span></span>
+            </router-link>
           </div>
         </section>
       </div>
@@ -52,7 +55,9 @@
         <span class="oxygen sectionTitles">Keeps</span>
       </div>
       <div class="col-10">
-
+        <section class="masonry-with-columns">
+          <KeepCard :keepProp="keep" v-for="keep in activeProfileKeeps" :key="keep.id" role="button" class="" />
+        </section>
       </div>
     </section>
   </div>
@@ -68,8 +73,10 @@ import { profilesService } from "../services/ProfilesService";
 import { useRoute } from "vue-router";
 import { accountService } from "../services/AccountService";
 import { vaultsService } from "../services/VaultsService";
+import KeepCard from "../components/KeepCard.vue";
+
 export default {
-  setup() {
+  setup(props) {
     const route = useRoute();
     onMounted(() => {
       getProfileById();
@@ -114,9 +121,11 @@ export default {
       account: computed(() => AppState.account),
       activeProfileKeeps: computed(() => AppState.activeProfileKeeps),
       activeProfileVaults: computed(() => AppState.activeProfileVaults),
-      activeProfileVaultsLength: computed(() => AppState.activeProfileVaults.length)
+      activeProfileVaultsLength: computed(() => AppState.activeProfileVaults.length),
+      activeVault: computed(() => AppState.activeVault)
     }
-  }
+  },
+  components: { KeepCard }
 };
 </script>
 
@@ -162,5 +171,14 @@ export default {
   background: #4949498b;
   width: 100%;
   display: inline-flex;
+}
+
+.keep-card {
+  box-shadow: 0px 7px 10px #0000009e;
+  width: 100%;
+}
+
+.masonry-with-columns {
+  columns: 4 175px;
 }
 </style>
