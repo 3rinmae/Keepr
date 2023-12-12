@@ -1,12 +1,13 @@
 <template>
-  <section class="position-relative my-3" v-show="show">
+  <section class="position-relative my-3 marko-one text-white" v-show="show">
     <img :src="keepProp.img" alt="" class="img-fluid" @load="ready">
+    <div v-if="account.id == keepProp.creatorId" class="position-absolute" style="top: -18px; right: -18px"
+      title="delete keep">
+      <button @click.stop="destroyKeep()" class="btn text-danger">
+        <i class="mdi mdi-close-circle "></i>
+      </button>
+    </div>
     <div class="position-absolute w-100" style="bottom: 0;">
-      <div v-if="account.id == keepProp.creatorId" class=" d-flex justify-content-end">
-        <button @click="destroyKeep()" class="btn text-danger">
-          <i class="mdi mdi-close-circle "></i>
-        </button>
-      </div>
       <div class="h-100">
         <div class="d-flex justify-content-between align-items-center py-2 px-1 keep-card-text h-100">
           <span class="fs-5">{{ keepProp.name }}</span>
@@ -35,6 +36,7 @@ export default {
 
     return {
       show,
+      props,
       keepImg: computed(() => `url(${props.keepProp.img})`),
       account: computed(() => AppState.account),
       ready() {

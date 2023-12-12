@@ -1,5 +1,5 @@
 <template>
-  <nav class=" d-flex justify-content-between align-items-center bg-cream px-3 fixed-bottom ">
+  <nav class=" d-flex justify-content-between align-items-center bg-cream px-3 fixed-bottom mb-3">
     <div class="d-flex align-items-center">
       <router-link class=" d-flex" :to="{ name: 'Home' }" title="home">
         <div class="d-flex flex-column align-items-center ps-4">

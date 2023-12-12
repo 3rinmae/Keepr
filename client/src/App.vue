@@ -13,7 +13,6 @@
       <div class="modal-content">
         <div class="modal-body p-0">
           <NewKeepModal />
-
         </div>
       </div>
     </div>
@@ -23,7 +22,15 @@
       <div class="modal-content">
         <div class="modal-body p-0">
           <NewVaultModal />
-
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="keepModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-body p-0">
+          <KeepModal />
         </div>
       </div>
     </div>
@@ -36,6 +43,7 @@ import { AppState } from './AppState'
 import Navbar from './components/Navbar.vue'
 import NewKeepModal from "./components/NewKeepModal.vue"
 import NewVaultModal from "./components/NewVaultModal.vue"
+import KeepModal from "./components/KeepModal.vue"
 
 export default {
   setup() {
@@ -43,7 +51,7 @@ export default {
       appState: computed(() => AppState)
     }
   },
-  components: { Navbar, NewKeepModal, NewVaultModal }
+  components: { Navbar, NewKeepModal, NewVaultModal, KeepModal }
 }
 </script>
 <style lang="scss">

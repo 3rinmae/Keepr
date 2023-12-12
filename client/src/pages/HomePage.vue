@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <section class="masonry-with-columns">
-      <KeepCard :keepProp="keep" v-for="keep in keeps" :key="keep.id" />
+      <KeepCard :keepProp="keep" v-for="keep in keeps" :key="keep.id" @click="setActiveKeep(keep)" role="button" />
     </section>
   </div>
 </template>
@@ -13,9 +13,10 @@ import { keepsService } from "../services/KeepsService";
 import { computed, onMounted } from "vue";
 import { AppState } from "../AppState";
 import KeepCard from "../components/KeepCard.vue";
+import { Modal } from "bootstrap";
 
 export default {
-  setup() {
+  setup(props) {
     onMounted(() => {
       getKeeps();
     });
@@ -33,7 +34,12 @@ export default {
     return {
       keeps: computed(() => AppState.keeps),
       account: computed(() => AppState.account),
-      getKeeps
+      getKeeps,
+      setActiveKeep(keep) {
+        AppState.activeKeep = keep
+        logger.log('setting active card', keep)
+        Modal.getOrCreateInstance('#keepModal').show()
+      }
     };
   },
   components: { KeepCard }

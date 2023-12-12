@@ -13,7 +13,7 @@ class KeepsService {
   async createNewKeep(keepData) {
     const res = await api.post('api/keeps', keepData)
     logger.log('keep created', res.data)
-    AppState.keeps.push(new Keep(res.data))
+    AppState.keeps.unshift(new Keep(res.data))
   }
 
   async destroyKeep(keepId) {
