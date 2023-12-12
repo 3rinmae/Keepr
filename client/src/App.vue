@@ -28,7 +28,7 @@
   </div>
   <div class="modal fade" id="keepModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
-      <div class="modal-content">
+      <div class="modal-content border-0 rounded-4">
         <div class="modal-body p-0">
           <KeepModal />
         </div>

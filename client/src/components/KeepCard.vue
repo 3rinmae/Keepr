@@ -29,6 +29,7 @@ import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
 import { keepsService } from "../services/KeepsService";
 import { Modal } from "bootstrap";
+import { vaultsService } from "../services/VaultsService";
 export default {
   props: { keepProp: { type: Keep, required: true } },
   setup(props) {
@@ -59,6 +60,8 @@ export default {
         AppState.activeKeep = props.keepProp
         logger.log('setting active card', props.keepProp)
         keepsService.getKeepById(props.keepProp.id)
+        vaultsService.getMyVaults()
+        logger.log('appstate my vaults', AppState.myVaults)
         Modal.getOrCreateInstance('#keepModal').show()
         logger.log('appstate active keep', AppState.activeKeep)
       }
