@@ -11,8 +11,13 @@ class KeepsService {
 
   }
 
+  async increaseViewCount(keep) {
+    // this.getKeepById(keep.id)
+    AppState.activeKeep.views++
+  }
+
   async getKeepById(keepId) {
-    AppState.activeKeep = {}
+    // AppState.activeKeep = {}
     const res = await api.get(`api/keeps/${keepId}`)
     logger.log('getting keep by id', res.data)
     AppState.activeKeep = res.data
@@ -20,18 +25,18 @@ class KeepsService {
 
   async createNewKeep(keepData) {
     const res = await api.post('api/keeps', keepData)
-    logger.log('keep created', res.data)
+    // logger.log('keep created', res.data)
     AppState.keeps.unshift(new Keep(res.data))
   }
 
   async destroyKeep(keepId) {
     const res = await api.delete(`api/keeps/${keepId}`)
-    logger.log('keep deleted', res.data)
+    // logger.log('keep deleted', res.data)
     this.getKeeps()
   }
 
   async clearActiveKeep() {
-    AppState.activeKeep = {}
+    AppState.activeKeep = null
   }
 }
 

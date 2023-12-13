@@ -14,6 +14,7 @@ import { computed, onMounted } from "vue";
 import { AppState } from "../AppState";
 import KeepCard from "../components/KeepCard.vue";
 import { Modal } from "bootstrap";
+import { vaultsService } from "../services/VaultsService";
 
 export default {
   setup(props) {
@@ -30,12 +31,15 @@ export default {
         logger.error(error);
         Pop.error(error);
       }
+    };
+    async function clearActiveData() {
+      await keepsService.clearActiveKeep()
+      await vaultsService.clearActiveVault()
     }
     return {
       keeps: computed(() => AppState.keeps),
       account: computed(() => AppState.account),
-      getKeeps
-
+      getKeeps,
     };
   },
   components: { KeepCard }

@@ -1,4 +1,5 @@
 import { AppState } from "../AppState"
+import { Keep } from "../models/Keep"
 import { Vault } from "../models/Vault"
 import { logger } from "../utils/Logger"
 import { api } from "./AxiosService"
@@ -8,10 +9,13 @@ class VaultsService {
   async createNewVault(vaultData) {
     const res = await api.post('api/vaults', vaultData)
     // logger.log('vault created', res.data)
-    // AppState.vaults.push(new Vault(res.data))
-    this.getMyVaults()
-    profilesService.getProfileById(AppState.activeProfile.id)
-    profilesService.getVaultsByProfileId()
+    if (AppState.activeProfile.id != AppState.account.id) {
+      return
+    }
+    AppState.activeProfileVaults.push(new Vault(res.data))
+    // this.getMyVaults()
+    // profilesService.getProfileById(AppState.activeProfile.id)
+    // profilesService.getVaultsByProfileId()
   }
 
   async getMyVaults() {
@@ -45,6 +49,12 @@ class VaultsService {
     AppState.activeVaultsKeeps = null
     const res = await api.get(`api/vaults/${vaultId}/keeps`)
     logger.log('getting keeps by vault id', res.data)
+    AppState.activeVaultsKeeps = res.data.map((keep) => new Keep(keep))
+  }
+
+  async clearActiveVault() {
+    AppState.activeVault = null
+    AppState.activeVaultsKeeps = []
   }
 }
 

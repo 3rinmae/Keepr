@@ -18,8 +18,6 @@
             <span class="marko-one border rounded border-dark px-2">k</span>
             <span class="px-2 marko-one">{{ activeKeep?.kept }}</span>
           </div>
-          <!-- <div class="col-6">
-          </div> -->
         </section>
         <section class="row w-100">
           <div class="col-12 fs-1">
@@ -30,11 +28,11 @@
           </div>
         </section>
         <section class="row w-100 ps-3">
-          <div class="col p-0">
+          <div class="col-9 p-0 d-flex">
             <div v-if="account?.id" class="d-flex">
-              <button v-if="activeKeep?.id == activeVaultKeep?.keepId" class="btn border-bottom"><i
-                  class="mdi mdi-minus-circle-outline"></i>
-                <span>Remove</span>
+              <button v-if="activeVault?.creatorId == account.id" @click="removeKeepFromVault()"
+                class="btn border-bottom d-flex">
+                <span><i class="mdi mdi-minus-circle-outline"></i> Remove</span>
               </button>
               <form class="d-flex" @submit="addKeepToVault()">
                 <select v-model="editable.vaultId" class="form-select" aria-label="Default select example">
@@ -43,11 +41,13 @@
                       {{ vaultId?.name }}
                     </span></option>
                 </select>
-                <button type="submit" class="btn marko-one bg-plum">save</button>
+                <div class="bg-plum rounded-3 ms-2">
+                  <button type="submit" class="btn marko-one bg-plum">save</button>
+                </div>
               </form>
             </div>
           </div>
-          <div class="col d-flex align-items-center justify-content-end p-0" role="button">
+          <div class="col-3 d-flex align-items-center justify-content-end p-0" role="button">
             <router-link :to="{ name: 'Profile', params: { profileId: activeKeep?.creatorId } }"
               v-if="activeKeep.creatorId" @click="closeKeepModal()">
               <img :src="activeKeep?.creator?.picture" alt="creator image" title="creator image link to profile"
@@ -97,6 +97,10 @@ export default {
         Modal.getOrCreateInstance('#keepModal').hide()
         keepsService.clearActiveKeep()
         // logger.log(AppState.activeKeep)
+      },
+
+      async removeKeepFromVault() {
+        logger.log(this.activeVaultKeep)
       }
     }
   }
