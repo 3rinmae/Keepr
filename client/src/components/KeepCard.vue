@@ -59,8 +59,8 @@ export default {
       setActiveKeep() {
         AppState.activeKeep = props.keepProp
         logger.log('setting active card', props.keepProp)
-        // keepsService.getKeepById(props.keepProp.id)
         keepsService.increaseViewCount(props.keepProp)
+        // keepsService.getKeepById(props.keepProp.id)
         vaultsService.getMyVaults()
         // logger.log('appstate my vaults', AppState.myVaults)
         Modal.getOrCreateInstance('#keepModal').show()

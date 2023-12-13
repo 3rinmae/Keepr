@@ -20,6 +20,7 @@ export default {
   setup(props) {
     onMounted(() => {
       getKeeps();
+      clearActiveData()
     });
     async function getKeeps() {
       try {

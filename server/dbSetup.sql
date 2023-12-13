@@ -111,3 +111,33 @@ FROM keeps k
     JOIN accounts acc ON acc.id = k.creatorId
 WHERE
     k.creatorId = '65418297a9f6909bc3e92f61';
+
+SELECT
+    k.*,
+    vk.id AS VaultKeepId,
+    COUNT (vkc.id) AS kept,
+    acc.*
+FROM vaults v
+    JOIN vaultKeeps vk ON v.id = vk.vaultId
+    JOIN keeps k ON vk.keepId = k.id
+    JOIN accounts acc ON acc.id = v.creatorId
+    LEFT JOIN vaultKeeps vkc ON vkc.`keepId` = k.id
+WHERE
+    v.id = 200
+    AND (
+        v.creatorId = @userId
+        OR v.isPrivate = false
+    )
+GROUP BY (k.id);
+
+SELECT
+    keep.*,
+    vk.id AS vaultKeepId,
+    COUNT(vkc.id) AS kept,
+    vk.*
+FROM `vaultKeeps` vk
+    JOIN keeps keep ON keep.id = vk.`keepId`
+    JOIN accounts acc ON acc.id = keep.`creatorId`
+    LEFT JOIN `vaultKeeps` vkc ON vkc.keepId = vk.`keepId`
+WHERE vk.`vaultId` = 200
+GROUP BY (vk.keepId);

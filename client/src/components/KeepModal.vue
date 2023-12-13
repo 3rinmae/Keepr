@@ -30,7 +30,7 @@
         <section class="row w-100 ps-3">
           <div class="col-9 p-0 d-flex">
             <div v-if="account?.id" class="d-flex">
-              <button v-if="activeVault?.creatorId == account.id" @click="removeKeepFromVault()"
+              <button v-if="account?.id == activeVault?.creatorId" @click="removeKeepFromVault()"
                 class="btn border-bottom d-flex">
                 <span><i class="mdi mdi-minus-circle-outline"></i> Remove</span>
               </button>
@@ -70,9 +70,12 @@ import Pop from "../utils/Pop";
 import { vaultKeepsService } from "../services/VaultKeepsService";
 import { keepsService } from "../services/KeepsService";
 import { Modal } from "bootstrap";
+import { vaultsService } from "../services/VaultsService";
+import { useRoute } from "vue-router";
 export default {
   setup() {
-    const editable = ref({})
+    const editable = ref({});
+    const route = useRoute();
     return {
       editable,
       activeKeep: computed(() => AppState.activeKeep),
@@ -88,8 +91,6 @@ export default {
           await vaultKeepsService.addKeepToVault(vaultKeepData)
           editable.value = {}
         } catch (error) {
-          logger.error(error)
-          Pop.error(error)
         }
       },
 
@@ -100,7 +101,19 @@ export default {
       },
 
       async removeKeepFromVault() {
-        logger.log(this.activeVaultKeep)
+        try {
+          const yes = await Pop.confirm('Are you sure you would like to remove this keep from your vault?')
+          if (!yes) { return }
+          const activeVaultKeep = this.activeKeep.vaultKeepId
+          logger.log(activeVaultKeep)
+          vaultKeepsService.removeKeepFromVault(activeVaultKeep)
+          const vaultId = route.params.vaultId;
+          this.closeKeepModal()
+          vaultsService.getVaultById(vaultId)
+        } catch (error) {
+          logger.error(error)
+          Pop.error(error)
+        }
       }
     }
   }
