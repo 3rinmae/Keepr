@@ -3,8 +3,8 @@
     <img :src="keepProp.img" alt="" class="img-fluid" @load="ready">
     <div v-if="account.id == keepProp.creatorId" class="position-absolute" style="top: -18px; right: -18px"
       title="delete keep">
-      <button @click.stop="destroyKeep()" class="btn text-danger">
-        <i class="mdi mdi-close-circle "></i>
+      <button @click.stop="destroyKeep()" class="btn text-danger" role="button" alt="delete keep" title="delete keep">
+        <i class="mdi mdi-close-circle " title="delete keep" alt="delete keep"></i>
       </button>
     </div>
     <div class="position-absolute w-100" style="bottom: 0;">

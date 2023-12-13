@@ -52,5 +52,6 @@ export default {
 <style lang="scss" scoped>
 .rounded-circle {
   aspect-ratio: 1;
+  object-fit: cover;
 }
 </style>

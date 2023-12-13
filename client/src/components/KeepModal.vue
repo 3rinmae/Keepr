@@ -7,10 +7,10 @@
     </section>
 
     <section v-else class="row">
-      <div class="col-6 m-0 p-0">
+      <div class="col-12 col-sm-6 m-0 p-0">
         <img :src="activeKeep?.img" alt="keep image" :title="activeKeep?.name" class="img-fluid active-modal-img w-100">
       </div>
-      <div class="col-6 py-4 d-flex flex-wrap align-content-between">
+      <div class="col-12 col-sm-6 py-4 d-flex flex-wrap align-content-between">
         <section class="row align-items-center justify-content-center w-100 ps-3">
           <div class="col p-0 d-flex justify-content-center align-items-center">
             <span><i class="mdi mdi-eye"></i></span>
@@ -28,7 +28,7 @@
           </div>
         </section>
         <section class="row w-100 ps-3">
-          <div class="col-9 p-0 d-flex">
+          <div class="col-8 p-0 d-flex">
             <div v-if="account?.id" class="d-flex">
               <button v-if="account?.id == activeVault?.creatorId" @click="removeKeepFromVault()"
                 class="btn border-bottom d-flex">
@@ -47,7 +47,7 @@
               </form>
             </div>
           </div>
-          <div class="col-3 d-flex align-items-center justify-content-end p-0" role="button">
+          <div class="col-4 d-flex align-items-center justify-content-end p-0" role="button">
             <router-link :to="{ name: 'Profile', params: { profileId: activeKeep?.creatorId } }"
               v-if="activeKeep.creatorId" @click="closeKeepModal()">
               <img :src="activeKeep?.creator?.picture" alt="creator image" title="creator image link to profile"
@@ -125,6 +125,7 @@ export default {
 .creator-image {
   aspect-ratio: 1;
   height: 2rem;
+  object-fit: cover;
 }
 
 .active-modal-img {

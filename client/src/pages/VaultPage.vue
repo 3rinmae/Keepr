@@ -5,10 +5,10 @@
         Loading Vault Page...
       </div>
     </section>
-    <section v-else class="row justify-content-center pt-2 h-75">
+    <section v-if="activeVault" class="row justify-content-center pt-2 h-75">
       <div class="col-9 col-sm-7 col-md-5 p-0">
         <img :src="activeVault.img" alt="vault cover image" class="img-fluid coverImg p-0 ">
-        <div class="text-center text-white position-relative vaultTitle" style="bottom: 30%">
+        <div class="text-center text-white position-relative vaultTitle" style="bottom: 33%">
           <p class="fs-1 fw-bold m-0">{{ activeVault.name.toUpperCase() }}</p>
           <p class="fs-4 ">by {{ activeVault.creator.name }}</p>
         </div>
@@ -17,7 +17,7 @@
             title="delete vault"></i></span>
       </div>
     </section>
-    <section class="row justify-content-center">
+    <section v-if="activeVault" class="row justify-content-center">
       <div class="col-10 text-center">
         <div class="">
           <span class="bg-lavender p-2 fs-4 rounded-4">{{ activeVaultsKeeps?.length }} Keeps</span>
@@ -57,6 +57,9 @@ export default {
       catch (error) {
         logger.error(error);
         Pop.error(error);
+        if (error.response.data.includes('Invalid Id')) {
+          router.push({ name: 'Home' })
+        }
       }
     }
     async function getKeepsByVaultId() {
