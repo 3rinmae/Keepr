@@ -30,6 +30,7 @@ import Pop from "../utils/Pop";
 import { keepsService } from "../services/KeepsService";
 import { Modal } from "bootstrap";
 import { vaultsService } from "../services/VaultsService";
+import { profilesService } from "../services/ProfilesService";
 export default {
   props: { keepProp: { type: Keep, required: true } },
   setup(props) {
@@ -51,6 +52,9 @@ export default {
             return
           }
           await keepsService.destroyKeep(props.keepProp.id)
+          if (AppState.activeProfile) {
+            profilesService.getKeepsByProfileId(AppState.activeProfile.id)
+          }
         } catch (error) {
           logger.error(error)
           Pop.error(error)

@@ -32,6 +32,7 @@ import { Modal } from "bootstrap";
 import { logger } from "../utils/Logger";
 import { keepsService } from "../services/KeepsService";
 import Pop from "../utils/Pop";
+import { profilesService } from "../services/ProfilesService";
 
 export default {
   setup() {
@@ -46,6 +47,9 @@ export default {
           Modal.getOrCreateInstance('#createNewKeep').hide()
           editable.value = {}
           keepsService.getKeeps()
+          if (AppState.activeProfile) {
+            profilesService.getKeepsByProfileId(AppState.activeProfile.id)
+          }
         } catch (error) {
           logger.error(error)
           Pop.error(error)

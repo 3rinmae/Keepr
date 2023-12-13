@@ -8,17 +8,17 @@
     <form @submit.prevent="editAccount()" class="p-5">
       <div class="mb-3">
         <label for="name" class="form-label">Name</label>
-        <input type="text" v-model="editable.name" class="form-control" id="name" aria-describedby="name" />
+        <input type="text" v-model="editable.name" class="form-control" id="name" aria-describedby="name" max="255" />
       </div>
       <div class="mb-3">
         <label for="picture" class="form-label">Picture</label>
-        <input v-model="editable.picture" type="url" class="form-control" id="picture" />
+        <input v-model="editable.picture" type="url" class="form-control" id="picture" max="255" />
       </div>
       <div class="mb-3">
         <label for="coverImg" class="form-label">Cover Image</label>
-        <input v-model="editable.coverImg" type="url" class="form-control" id="coverImg" />
+        <input v-model="editable.coverImg" type="url" class="form-control" id="coverImg" max="1000" />
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary" title="submit">Submit</button>
     </form>
   </div>
 </template>

@@ -3,13 +3,13 @@
     <div class="d-flex align-items-center">
       <router-link class=" d-flex" :to="{ name: 'Home' }" title="home">
         <div class="d-flex flex-column align-items-center ps-4">
-          <img alt="logo" src="../assets/img/Keepr logo.png" height="45" />
+          <img alt="logo" src="../assets/img/Keepr logo.png" height="65" />
         </div>
       </router-link>
       <div v-if="account.id" class="dropdown ps-2">
         <button class="btn dropdown-toggle bg-lavender " type="button" id="dropdownMenu2" data-bs-toggle="dropdown"
           aria-expanded="false" title="create dropdown">
-          <span class="oxygen ">
+          <span class="oxygen fs-4">
             Create
           </span>
         </button>
@@ -92,14 +92,14 @@ a:hover {
 
 @media screen and (min-width: 768px) {
   nav {
-    height: 64px;
+    height: 90px;
   }
 }
 
 @media screen and (min-width: 450px) {
   nav {
     position: sticky;
-    border-bottom: 2px solid lavender;
+    border-bottom: 2px solid #ebe8e6;
   }
 }
 </style>

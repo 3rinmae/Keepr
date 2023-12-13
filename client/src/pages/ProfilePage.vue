@@ -46,7 +46,7 @@
               <img :src="vault.img" alt="vault image" :title="vault.name" class="img-fluid vaultCard">
               <span class="p-2 quando text-white keep-card-text position-relative d-flex justify-content-between"
                 style="bottom: 21%">{{ vault.name
-                }} <span v-if="vault.isPrivate == true"><i class="mdi mdi-lock"></i></span></span>
+                }} <span v-if="vault.isPrivate == true" title="locked vault"><i class="mdi mdi-lock"></i></span></span>
             </router-link>
           </div>
         </section>
@@ -87,6 +87,7 @@ export default {
     });
     async function getProfileById() {
       try {
+        AppState.activeProfile = null
         const profileId = route.params.profileId
         await profilesService.getProfileById(profileId)
       } catch (error) {

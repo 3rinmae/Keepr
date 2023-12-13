@@ -53,5 +53,6 @@ export default {
 .rounded-circle {
   aspect-ratio: 1;
   object-fit: cover;
+  height: 4rem;
 }
 </style>
