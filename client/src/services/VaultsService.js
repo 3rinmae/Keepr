@@ -10,7 +10,8 @@ class VaultsService {
     // logger.log('vault created', res.data)
     // AppState.vaults.push(new Vault(res.data))
     this.getMyVaults()
-    // profilesService.getVaultsByProfileId()
+    profilesService.getProfileById(AppState.activeProfile.id)
+    profilesService.getVaultsByProfileId()
   }
 
   async getMyVaults() {
