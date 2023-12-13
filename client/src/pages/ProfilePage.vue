@@ -10,6 +10,8 @@
         <img :src="activeProfile.coverImg" alt="profile cover image" class="img-fluid coverImg">
       </div>
       <div class="col-12 d-flex justify-content-center">
+
+        <!-- !TODO - need to add back in position absolute on picture -->
         <!-- position-absolute -->
         <section class="row justify-content-center " style="bottom:26%;">
           <div class="col-12 d-flex justify-content-center">
@@ -21,11 +23,11 @@
           </span>
           <div class="col-12 d-flex justify-content-center oxygen fs-4">
             <span class="">
-              {{ activeProfileVaults.length }} Vaults
+              {{ activeProfileVaults?.length }} Vaults
             </span>
             <span class="px-2">|</span>
             <span>
-              {{ activeProfileKeeps.length }} Keeps
+              {{ activeProfileKeeps?.length }} Keeps
             </span>
           </div>
         </section>

@@ -8,22 +8,23 @@ class ProfilesService {
   async getProfileById(profileId) {
     AppState.activeProfile = null
     const res = await api.get(`api/profiles/${profileId}`)
-    logger.log('getting profile from api', res.data)
+    // logger.log('getting profile from api', res.data)
     AppState.activeProfile = new Profile(res.data)
   }
 
   async getKeepsByProfileId(profileId) {
+    AppState.activeProfileKeeps = null
     const res = await api.get(`api/profiles/${profileId}/keeps`)
-    logger.log('getting keeps by profile id', res.data)
+    // logger.log('getting keeps by profile id', res.data)
     AppState.activeProfileKeeps = res.data.map((keep) => new Keep(keep))
-    logger.log('keeps in Appstate', AppState.activeProfileKeeps)
+    // logger.log('keeps in Appstate', AppState.activeProfileKeeps)
   }
 
   async getVaultsByProfileId(profileId) {
     const res = await api.get(`api/profiles/${profileId}/vaults`)
-    logger.log('getting vaults by profile id', res.data)
+    // logger.log('getting vaults by profile id', res.data)
     AppState.activeProfileVaults = res.data.map((vault) => new Vault(vault))
-    logger.log('vaults in appstate', AppState.activeProfileVaults)
+    // logger.log('vaults in appstate', AppState.activeProfileVaults)
   }
 }
 
