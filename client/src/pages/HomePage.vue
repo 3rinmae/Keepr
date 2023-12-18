@@ -6,6 +6,8 @@
   </div>
 </template>
 
+<!-- Database changed to AWS -->
+
 <script>
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
