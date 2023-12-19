@@ -5,15 +5,15 @@
         Loading Profile Page...
       </div>
     </section>
-    <section v-else class="row justify-content-center pt-5 ">
+    <section v-if="activeProfile" class="row justify-content-center pt-5 ">
       <div class="col-9">
-        <img :src="activeProfile.coverImg" alt="profile cover image" class="img-fluid coverImg">
+        <img :src="activeProfile.coverImg" alt="profile cover image" class="img-fluid coverImg position-absolute">
       </div>
       <div class="col-12 d-flex justify-content-center">
 
         <!-- !TODO - need to add back in position absolute on picture -->
         <!-- position-absolute -->
-        <section class="row justify-content-center " style="bottom:26%;">
+        <section class="row justify-content-center position-relative" style="top:100%;">
           <div class="col-12 d-flex justify-content-center">
             <img :src="activeProfile.picture" alt="profile picture" :title="activeProfile.Name"
               class="img-fluid rounded-circle profileImg">
@@ -35,24 +35,24 @@
         </section>
       </div>
     </section>
-    <section class="row pt-3 justify-content-center">
+    <section v-if="activeProfile" class="row pt-3 justify-content-center proper-margin">
       <div class="col-10">
         <span class="oxygen sectionTitles">Vaults</span>
       </div>
       <div class="col-10">
         <section class="row">
-          <div v-for="vault in activeProfileVaults" :key="vault.id" role="button" class="col-3 ">
+          <div v-for="vault in activeProfileVaults" :key="vault.id" role="button" class="col-6 col-md-4 col-lg-3 ">
             <router-link :to="{ name: 'Vault', params: { vaultId: vault?.id } }">
               <img :src="vault.img" alt="vault image" :title="vault.name" class="img-fluid vaultCard">
               <span class="p-2 quando text-white keep-card-text position-relative d-flex justify-content-between"
-                style="bottom: 21%">{{ vault.name
+                style="bottom: 25%">{{ vault.name
                 }} <span v-if="vault.isPrivate == true" title="locked vault"><i class="mdi mdi-lock"></i></span></span>
             </router-link>
           </div>
         </section>
       </div>
     </section>
-    <section class="row pt-3 justify-content-center">
+    <section v-if="activeProfile" class="row pt-3 justify-content-center">
       <div class="col-10">
         <span class="oxygen sectionTitles">Keeps</span>
       </div>
@@ -137,7 +137,7 @@ export default {
 .coverImg {
   height: 40vh;
   object-fit: cover;
-  width: 100%;
+  width: 65vw;
   border-radius: 8px;
 }
 
@@ -152,6 +152,10 @@ export default {
 .profileName {
   font-size: 4rem;
   font-weight: bold;
+}
+
+.proper-margin {
+  margin-top: 33vh;
 }
 
 .sectionTitles {

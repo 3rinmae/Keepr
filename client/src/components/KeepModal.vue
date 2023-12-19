@@ -131,6 +131,7 @@ export default {
 .active-modal-img {
   border-radius: 14px 0% 0% 14px;
   max-height: 75vh;
+  min-height: 46vh;
   object-fit: cover;
 
 }
