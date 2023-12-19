@@ -1,6 +1,6 @@
 <template>
   <section @click="setActiveKeep()" class="position-relative mb-3 marko-one text-white keep-card " v-show="show">
-    <img :src="keepProp.img" alt="" class="img-fluid" @load="ready">
+    <img :src="keepProp.img" alt="" class="img-fluid card-img" @load="ready">
     <div v-if="account.id == keepProp.creatorId" class="position-absolute" style="top: -18px; right: -18px"
       title="delete keep">
       <button @click.stop="destroyKeep()" class="btn text-danger" role="button" alt="delete keep" title="delete keep">
@@ -64,7 +64,7 @@ export default {
         AppState.activeKeep = props.keepProp
         logger.log('setting active card', props.keepProp)
         keepsService.increaseViewCount(props.keepProp)
-        // keepsService.getKeepById(props.keepProp.id)
+        keepsService.getKeepById(props.keepProp.id)
         vaultsService.getMyVaults()
         // logger.log('appstate my vaults', AppState.myVaults)
         Modal.getOrCreateInstance('#keepModal').show()
@@ -80,6 +80,7 @@ export default {
 .keep-card {
   box-shadow: 0px 7px 10px #0000009e;
   width: 100%;
+  border-radius: 7px;
 }
 
 // .loader {
@@ -87,11 +88,16 @@ export default {
 //   background-color: #4949498b;
 // }
 
+.card-img {
+  border-radius: 7px;
+}
+
 .keep-card-text {
   box-shadow:
     0px -10px 20px 4px #4949498b;
   // 0 0 2rem .5rem #4949498b inset;
   background: #4949498b;
+  border-radius: 0px 0px 7px 7px;
 
 }
 

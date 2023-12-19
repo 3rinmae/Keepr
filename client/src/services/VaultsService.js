@@ -9,7 +9,7 @@ class VaultsService {
   async createNewVault(vaultData) {
     const res = await api.post('api/vaults', vaultData)
     // logger.log('vault created', res.data)
-    if (AppState.activeProfile.id != AppState.account.id) {
+    if (AppState.activeProfile?.id != AppState.account?.id) {
       return
     }
     AppState.activeProfileVaults.push(new Vault(res.data))
