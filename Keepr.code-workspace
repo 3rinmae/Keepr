@@ -8,7 +8,8 @@
     {
       "path": "server",
       "name": "server"
-    },{"path":".github/workflows", "name":"workflows"}
+    },
+    {"path":".github/workflows", "name":"workflows"}
   ],
   "settings": {
     "editor.suggestSelection": "first",
