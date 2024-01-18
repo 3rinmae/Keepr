@@ -41,8 +41,8 @@
 import { computed } from 'vue'
 import { AppState } from './AppState'
 import Navbar from './components/Navbar.vue'
-import NewKeepModal from "./components/NewKeepModal.vue"
 import NewVaultModal from "./components/NewVaultModal.vue"
+import NewKeepModal from "./components/NewKeepModal.vue"
 import KeepModal from "./components/KeepModal.vue"
 
 export default {

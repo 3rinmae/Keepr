@@ -36,12 +36,13 @@
 
 
 <script>
+import Pop from "../utils/Pop";
 import { AppState } from '../AppState';
 import { computed, reactive, onMounted, ref } from 'vue';
 import { logger } from "../utils/Logger";
-import Pop from "../utils/Pop";
 import { vaultsService } from "../services/VaultsService";
 import { Modal } from "bootstrap";
+
 export default {
   setup() {
     const editable = ref({})
