@@ -41,9 +41,9 @@
 import { computed } from 'vue'
 import { AppState } from './AppState'
 import Navbar from './components/Navbar.vue'
-import NewVaultModal from "./components/NewVaultModal.vue"
 import NewKeepModal from "./components/NewKeepModal.vue"
 import KeepModal from "./components/KeepModal.vue"
+import NewVaultModal from "./components/NewVaultModal.vue"
 
 export default {
   setup() {
@@ -54,7 +54,7 @@ export default {
       activeKeep: computed(() => AppState.activeKeep),
     }
   },
-  components: { Navbar, NewKeepModal, NewVaultModal, KeepModal }
+  components: { Navbar, NewKeepModal, KeepModal, NewVaultModal }
 }
 </script>
 <style lang="scss">
